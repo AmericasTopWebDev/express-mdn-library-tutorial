@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+
+  ul
+    each author in author_list
+      li
+        a(href=author.url) #{author.name}
+        |  
+        if author.lifespan && !author.lifespan.includes('Invalid')
+          | (#{author.lifespan})
+        else if author.date_of_birth 
+          | (#{author.date_of_birth_formatted}) - (unknown)
+        else if author.date_of_death 
+          | (unknown) - (#{author.date_of_death_formatted})
+        else if author.lifespan
+          | (unknown)
+
+    if author_list.length === 0
+      li There are no authors.
